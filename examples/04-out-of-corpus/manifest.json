@@ -1,0 +1,8 @@
+{
+  "command": "python3 run.py run --input examples/04-out-of-corpus/input.json --data-dir data --state-dir examples/04-out-of-corpus --engine offline --now 2026-11-10T09:00:00+08:00",
+  "engine": "offline",
+  "model": "reference-policy",
+  "faults": [],
+  "expected": "insufficient",
+  "citations": []
+}

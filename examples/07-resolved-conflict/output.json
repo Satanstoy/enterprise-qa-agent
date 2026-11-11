@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-18B2419BA6",
+  "request_id": "QA-007",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "status": "completed",
+  "outcome": "answered",
+  "answer_status": "answered",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 4,
+    "used_tool_calls": 4
+  },
+  "request": {
+    "request_id": "QA-007",
+    "question": "发票怎么提交？",
+    "history": [],
+    "user_scope": ""
+  },
+  "question": "发票怎么提交？",
+  "answer": "按 2026 版发票制度，员工在报销系统上传电子发票 PDF，无需邮寄；2024 版已废止。",
+  "citations": [
+    {
+      "doc_id": "D06",
+      "title": "发票制度（2026 版）",
+      "version_date": "2026-01-15",
+      "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+    }
+  ],
+  "gaps": [],
+  "followup_question": "",
+  "conflict": {
+    "detected": true,
+    "resolved": true,
+    "unresolved_items": [],
+    "resolved_items": [
+      {
+        "key": "发票提交方式",
+        "authoritative": {
+          "doc_id": "D06",
+          "value": "电子上传",
+          "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。",
+          "version_date": "2026-01-15"
+        },
+        "superseded": [
+          {
+            "doc_id": "D05",
+            "value": "纸质邮寄",
+            "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+            "version_date": "2024-06-01"
+          }
+        ],
+        "note": "D06 明确废止 D05，采用前者。"
+      }
+    ],
+    "authoritative_doc_id": "D06",
+    "note": "D06 明确废止 D05，采用前者。"
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "发票怎么提交？ 上传 提交 发票 报销",
+        "ok": true,
+        "hit_count": 2,
+        "hits": [
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "score": 21,
+            "snippet": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          },
+          {
+            "doc_id": "D05",
+            "title": "发票制度（2024 版）",
+            "version_date": "2024-06-01",
+            "score": 15,
+            "snippet": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+          }
+        ]
+      }
+    ],
+    "documents_read": [
+      "D06",
+      "D05"
+    ]
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "检索完成",
+      "arguments": {
+        "query": "发票怎么提交？ 上传 提交 发票 报销",
+        "top_k": 3
+      },
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。"
+    },
+    {
+      "step": 2,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D06"
+      },
+      "decision_basis": "读取 D06 原文，核对引用和冲突。"
+    },
+    {
+      "step": 3,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D05"
+      },
+      "decision_basis": "读取 D05 原文，核对引用和冲突。"
+    },
+    {
+      "step": 4,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "answered",
+        "answer": "按 2026 版发票制度，员工在报销系统上传电子发票 PDF，无需邮寄；2024 版已废止。",
+        "citations": [
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          }
+        ],
+        "conflict": {
+          "detected": true,
+          "resolved": true,
+          "field": "发票提交方式",
+          "authoritative_doc_id": "D06",
+          "superseded": [
+            {
+              "doc_id": "D05",
+              "value": "纸质邮寄",
+              "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+              "version_date": "2024-06-01"
+            }
+          ],
+          "note": "D06 明确废止 D05，采用前者。"
+        }
+      },
+      "decision_basis": "发现版本冲突，依据文档中的废止关系采用新制度。"
+    }
+  ],
+  "degraded": false,
+  "failed_tool_calls": [],
+  "decision_basis": "引用原文片段回答，片段已由 finish 工具校验。",
+  "summary": {
+    "tools_succeeded": 4,
+    "tools_failed": 0,
+    "documents_read": 2,
+    "citations": 1
+  }
+}

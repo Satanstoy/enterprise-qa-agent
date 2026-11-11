@@ -1,0 +1,22 @@
+{
+  "command": "python3 run.py run --input examples/live/04-out-of-corpus/input.json --data-dir data --state-dir examples/live/04-out-of-corpus --engine opencode-local --provider opencode-go --model deepseek-v4.1-flash --now 2026-11-10T09:00:00+08:00",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "provider": "opencode-go",
+  "real_model_call": true,
+  "faults": [],
+  "expected": "insufficient",
+  "citations": [],
+  "tool_sequence": [
+    "search_docs",
+    "search_docs",
+    "finish"
+  ],
+  "context_stats": {
+    "chars": 2471,
+    "observations_total": 2,
+    "observations_detailed": 2,
+    "observations_omitted": 0,
+    "truncated": false
+  }
+}

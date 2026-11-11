@@ -1,0 +1,11 @@
+{
+  "command": "python3 run.py run --input examples/03-paraphrase/input.json --data-dir data --state-dir examples/03-paraphrase --engine offline --now 2026-11-10T09:00:00+08:00",
+  "engine": "offline",
+  "model": "reference-policy",
+  "faults": [],
+  "expected": "needs_clarification",
+  "citations": [
+    "D01",
+    "D02"
+  ]
+}

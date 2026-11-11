@@ -1,0 +1,26 @@
+{
+  "command": "python3 run.py run --input examples/live/03-paraphrase/input.json --data-dir data --state-dir examples/live/03-paraphrase --engine opencode-local --provider opencode-go --model deepseek-v4.1-flash --now 2026-11-10T09:00:00+08:00",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "provider": "opencode-go",
+  "real_model_call": true,
+  "faults": [],
+  "expected": "needs_clarification",
+  "citations": [
+    "D01",
+    "D02"
+  ],
+  "tool_sequence": [
+    "search_docs",
+    "read_doc",
+    "read_doc",
+    "finish"
+  ],
+  "context_stats": {
+    "chars": 3407,
+    "observations_total": 3,
+    "observations_detailed": 3,
+    "observations_omitted": 0,
+    "truncated": false
+  }
+}

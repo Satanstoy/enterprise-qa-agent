@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-8D6B34EB63",
+  "request_id": "QA-010",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "status": "completed",
+  "outcome": "answered",
+  "answer_status": "answered",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 3,
+    "used_tool_calls": 3
+  },
+  "request": {
+    "request_id": "QA-010",
+    "question": "会议室需要提前多久预订？",
+    "history": [],
+    "user_scope": ""
+  },
+  "question": "会议室需要提前多久预订？",
+  "answer": "会议室需提前 2 小时预订；超过 10 人的会议还需要部门负责人确认。",
+  "citations": [
+    {
+      "doc_id": "D07",
+      "title": "会议室预订规则",
+      "version_date": "2026-04-01",
+      "quote": "会议室需提前 2 小时预订，超过 10 人的会议需部门负责人确认。"
+    }
+  ],
+  "gaps": [],
+  "followup_question": "",
+  "conflict": {
+    "detected": false,
+    "resolved": false,
+    "unresolved_items": [],
+    "resolved_items": []
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "会议室需要提前多久预订？ 期限 天内",
+        "ok": true,
+        "hit_count": 1,
+        "hits": [
+          {
+            "doc_id": "D07",
+            "title": "会议室预订规则",
+            "version_date": "2026-04-01",
+            "score": 47,
+            "snippet": "会议室需提前 2 小时预订，超过 10 人的会议需部门负责人确认。"
+          }
+        ]
+      }
+    ],
+    "documents_read": [
+      "D07"
+    ]
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "检索完成",
+      "arguments": {
+        "query": "会议室需要提前多久预订？ 期限 天内",
+        "top_k": 3
+      },
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。"
+    },
+    {
+      "step": 2,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D07"
+      },
+      "decision_basis": "读取 D07 原文，核对引用和冲突。"
+    },
+    {
+      "step": 3,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "answered",
+        "answer": "会议室需提前 2 小时预订；超过 10 人的会议还需要部门负责人确认。",
+        "citations": [
+          {
+            "doc_id": "D07",
+            "title": "会议室预订规则",
+            "version_date": "2026-04-01",
+            "quote": "会议室需提前 2 小时预订，超过 10 人的会议需部门负责人确认。"
+          }
+        ],
+        "conflict": {
+          "detected": false,
+          "resolved": false
+        }
+      },
+      "decision_basis": "依据 D07 的原文回答。"
+    }
+  ],
+  "degraded": false,
+  "failed_tool_calls": [],
+  "decision_basis": "引用原文片段回答，片段已由 finish 工具校验。",
+  "summary": {
+    "tools_succeeded": 3,
+    "tools_failed": 0,
+    "documents_read": 1,
+    "citations": 1
+  }
+}

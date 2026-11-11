@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-516778E6DC",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "request": {
+    "request_id": "QA-006",
+    "question": "企业版试用期多久？",
+    "history": [],
+    "user_scope": ""
+  },
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20
+  },
+  "prompt_sha256": "offline-reference-policy",
+  "started_at": "2026-11-11T16:55:16+0800",
+  "steps": [
+    {
+      "type": "model_decision",
+      "model_step": 1,
+      "assistant_text": "",
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。",
+      "tool_calls": [
+        {
+          "id": "call_1",
+          "name": "search_docs",
+          "arguments": {
+            "query": "企业版试用期多久？ 期限 天内",
+            "top_k": 3
+          },
+          "reason": "先检索相关制度或 FAQ；必要时扩展同义词。"
+        }
+      ],
+      "index": 1
+    },
+    {
+      "type": "tool_result",
+      "model_step": 1,
+      "tool_call_id": "call_1",
+      "tool": "search_docs",
+      "arguments": {
+        "query": "企业版试用期多久？ 期限 天内",
+        "top_k": 3
+      },
+      "ok": false,
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs",
+      "data": {},
+      "error": {
+        "code": "INJECTED_FAILURE",
+        "message": "注入的工具失败：search_docs",
+        "retryable": true
+      },
+      "elapsed_ms": 0,
+      "index": 2
+    },
+    {
+      "type": "model_decision",
+      "model_step": 2,
+      "assistant_text": "",
+      "decision_basis": "检索失败，扩展同义词后重试一次。",
+      "tool_calls": [
+        {
+          "id": "call_2",
+          "name": "search_docs",
+          "arguments": {
+            "query": "企业版试用期多久？ 期限 天内 制度",
+            "top_k": 3
+          },
+          "reason": "检索失败，扩展同义词后重试一次。"
+        }
+      ],
+      "index": 3
+    },
+    {
+      "type": "tool_result",
+      "model_step": 2,
+      "tool_call_id": "call_2",
+      "tool": "search_docs",
+      "arguments": {
+        "query": "企业版试用期多久？ 期限 天内 制度",
+        "top_k": 3
+      },
+      "ok": false,
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs",
+      "data": {},
+      "error": {
+        "code": "INJECTED_FAILURE",
+        "message": "注入的工具失败：search_docs",
+        "retryable": true
+      },
+      "elapsed_ms": 0,
+      "index": 4
+    },
+    {
+      "type": "model_decision",
+      "model_step": 3,
+      "assistant_text": "",
+      "decision_basis": "连续检索失败，停止并说明工具故障。",
+      "tool_calls": [
+        {
+          "id": "call_3",
+          "name": "finish",
+          "arguments": {
+            "status": "tool_error",
+            "answer": "",
+            "gaps": [
+              {
+                "code": "SEARCH_FAILED",
+                "message": "检索工具连续失败，未生成答案"
+              }
+            ]
+          },
+          "reason": "连续检索失败，停止并说明工具故障。"
+        }
+      ],
+      "index": 5
+    },
+    {
+      "type": "tool_result",
+      "model_step": 3,
+      "tool_call_id": "call_3",
+      "tool": "finish",
+      "arguments": {
+        "status": "tool_error",
+        "answer": "",
+        "gaps": [
+          {
+            "code": "SEARCH_FAILED",
+            "message": "检索工具连续失败，未生成答案"
+          }
+        ]
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "任务结束",
+      "data": {
+        "status": "tool_error",
+        "answer": "",
+        "citations": [],
+        "gaps": [
+          {
+            "code": "SEARCH_FAILED",
+            "message": "检索工具连续失败，未生成答案"
+          }
+        ],
+        "followup_question": "",
+        "conflict": {
+          "detected": false,
+          "resolved": false,
+          "unresolved_items": [],
+          "resolved_items": []
+        }
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 6
+    }
+  ],
+  "finished_at": "2026-11-11T16:55:16+0800",
+  "result": {
+    "status": "completed",
+    "outcome": "tool_error",
+    "stop_reason": "finished"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "command": "python3 run.py run --input examples/06-tool-failure/input.json --data-dir data --state-dir examples/06-tool-failure --engine offline --now 2026-11-10T09:00:00+08:00 --fault search_docs:2",
+  "engine": "offline",
+  "model": "reference-policy",
+  "faults": [
+    "search_docs:2"
+  ],
+  "expected": "tool_error",
+  "citations": []
+}

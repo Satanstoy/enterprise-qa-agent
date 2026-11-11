@@ -1,0 +1,357 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-43B43DDFB4",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "request": {
+    "request_id": "QA-003",
+    "question": "出差回来多久内要报销？",
+    "history": [],
+    "user_scope": ""
+  },
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20
+  },
+  "prompt_sha256": "offline-reference-policy",
+  "started_at": "2026-11-11T16:55:16+0800",
+  "steps": [
+    {
+      "type": "model_decision",
+      "model_step": 1,
+      "assistant_text": "",
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。",
+      "tool_calls": [
+        {
+          "id": "call_1",
+          "name": "search_docs",
+          "arguments": {
+            "query": "出差回来多久内要报销？ 差旅 发生后 期限 天内",
+            "top_k": 3
+          },
+          "reason": "先检索相关制度或 FAQ；必要时扩展同义词。"
+        }
+      ],
+      "index": 1
+    },
+    {
+      "type": "tool_result",
+      "model_step": 1,
+      "tool_call_id": "call_1",
+      "tool": "search_docs",
+      "arguments": {
+        "query": "出差回来多久内要报销？ 差旅 发生后 期限 天内",
+        "top_k": 3
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "检索完成",
+      "data": {
+        "query": "出差回来多久内要报销？ 差旅 发生后 期限 天内",
+        "hits": [
+          {
+            "doc_id": "D01",
+            "title": "差旅报销制度",
+            "version_date": "2025-01-01",
+            "score": 35,
+            "snippet": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。发票抬头应与公司名称一致。"
+          },
+          {
+            "doc_id": "D02",
+            "title": "费用报销管理办法（2026 修订）",
+            "version_date": "2026-01-01",
+            "score": 31,
+            "snippet": "报销申请须在费用发生后 15 天内提交，逾期不予受理。"
+          }
+        ],
+        "hit_count": 2
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 2
+    },
+    {
+      "type": "model_decision",
+      "model_step": 2,
+      "assistant_text": "",
+      "decision_basis": "读取 D01 原文，核对引用和冲突。",
+      "tool_calls": [
+        {
+          "id": "call_2",
+          "name": "read_doc",
+          "arguments": {
+            "doc_id": "D01"
+          },
+          "reason": "读取 D01 原文，核对引用和冲突。"
+        }
+      ],
+      "index": 3
+    },
+    {
+      "type": "tool_result",
+      "model_step": 2,
+      "tool_call_id": "call_2",
+      "tool": "read_doc",
+      "arguments": {
+        "doc_id": "D01"
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "读取完成",
+      "data": {
+        "doc_id": "D01",
+        "title": "差旅报销制度",
+        "version_date": "2025-01-01",
+        "owner": "财务部",
+        "scope": null,
+        "supersedes": [],
+        "tags": [
+          "报销",
+          "差旅",
+          "期限",
+          "财务"
+        ],
+        "text": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。发票抬头应与公司名称一致。",
+        "answer": "按 D01 制度，员工应在费用发生后 30 天内提交报销申请，逾期需要部门负责人审批。",
+        "claims": [
+          {
+            "key": "报销期限",
+            "value": "30天",
+            "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。"
+          }
+        ],
+        "intents": [
+          "报销",
+          "期限",
+          "多久",
+          "几天",
+          "出差",
+          "差旅"
+        ]
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 4
+    },
+    {
+      "type": "model_decision",
+      "model_step": 3,
+      "assistant_text": "",
+      "decision_basis": "读取 D02 原文，核对引用和冲突。",
+      "tool_calls": [
+        {
+          "id": "call_3",
+          "name": "read_doc",
+          "arguments": {
+            "doc_id": "D02"
+          },
+          "reason": "读取 D02 原文，核对引用和冲突。"
+        }
+      ],
+      "index": 5
+    },
+    {
+      "type": "tool_result",
+      "model_step": 3,
+      "tool_call_id": "call_3",
+      "tool": "read_doc",
+      "arguments": {
+        "doc_id": "D02"
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "读取完成",
+      "data": {
+        "doc_id": "D02",
+        "title": "费用报销管理办法（2026 修订）",
+        "version_date": "2026-01-01",
+        "owner": "财务部",
+        "scope": null,
+        "supersedes": [],
+        "tags": [
+          "报销",
+          "费用",
+          "期限",
+          "财务"
+        ],
+        "text": "报销申请须在费用发生后 15 天内提交，逾期不予受理。",
+        "answer": "按 D02 制度，报销申请须在费用发生后 15 天内提交，逾期不予受理。",
+        "claims": [
+          {
+            "key": "报销期限",
+            "value": "15天",
+            "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。"
+          }
+        ],
+        "intents": [
+          "报销",
+          "期限",
+          "多久",
+          "几天",
+          "费用",
+          "出差",
+          "差旅"
+        ]
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 6
+    },
+    {
+      "type": "model_decision",
+      "model_step": 4,
+      "assistant_text": "",
+      "decision_basis": "发现未解决冲突，列出双方原文并追问适用制度。",
+      "tool_calls": [
+        {
+          "id": "call_4",
+          "name": "finish",
+          "arguments": {
+            "status": "needs_clarification",
+            "answer": "检索到关于“报销期限”的冲突：D01（2025-01-01）规定 30天；D02（2026-01-01）规定 15天。这些文档都没有给出适用范围或优先级，不能判断哪一份适用。",
+            "citations": [
+              {
+                "doc_id": "D01",
+                "title": "差旅报销制度",
+                "version_date": "2025-01-01",
+                "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。"
+              },
+              {
+                "doc_id": "D02",
+                "title": "费用报销管理办法（2026 修订）",
+                "version_date": "2026-01-01",
+                "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。"
+              }
+            ],
+            "followup_question": "请确认适用哪份制度：D01（2025-01-01）、D02（2026-01-01）？",
+            "conflict": {
+              "detected": true,
+              "resolved": false,
+              "field": "报销期限",
+              "claims": [
+                {
+                  "doc_id": "D01",
+                  "value": "30天",
+                  "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。",
+                  "version_date": "2025-01-01"
+                },
+                {
+                  "doc_id": "D02",
+                  "value": "15天",
+                  "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。",
+                  "version_date": "2026-01-01"
+                }
+              ],
+              "note": "未提供适用范围或优先级，不擅自选择版本。"
+            }
+          },
+          "reason": "发现未解决冲突，列出双方原文并追问适用制度。"
+        }
+      ],
+      "index": 7
+    },
+    {
+      "type": "tool_result",
+      "model_step": 4,
+      "tool_call_id": "call_4",
+      "tool": "finish",
+      "arguments": {
+        "status": "needs_clarification",
+        "answer": "检索到关于“报销期限”的冲突：D01（2025-01-01）规定 30天；D02（2026-01-01）规定 15天。这些文档都没有给出适用范围或优先级，不能判断哪一份适用。",
+        "citations": [
+          {
+            "doc_id": "D01",
+            "title": "差旅报销制度",
+            "version_date": "2025-01-01",
+            "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。"
+          },
+          {
+            "doc_id": "D02",
+            "title": "费用报销管理办法（2026 修订）",
+            "version_date": "2026-01-01",
+            "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。"
+          }
+        ],
+        "followup_question": "请确认适用哪份制度：D01（2025-01-01）、D02（2026-01-01）？",
+        "conflict": {
+          "detected": true,
+          "resolved": false,
+          "field": "报销期限",
+          "claims": [
+            {
+              "doc_id": "D01",
+              "value": "30天",
+              "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。",
+              "version_date": "2025-01-01"
+            },
+            {
+              "doc_id": "D02",
+              "value": "15天",
+              "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。",
+              "version_date": "2026-01-01"
+            }
+          ],
+          "note": "未提供适用范围或优先级，不擅自选择版本。"
+        }
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "任务结束",
+      "data": {
+        "status": "needs_clarification",
+        "answer": "检索到关于“报销期限”的冲突：D01（2025-01-01）规定 30天；D02（2026-01-01）规定 15天。这些文档都没有给出适用范围或优先级，不能判断哪一份适用。",
+        "citations": [
+          {
+            "doc_id": "D01",
+            "title": "差旅报销制度",
+            "version_date": "2025-01-01",
+            "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。"
+          },
+          {
+            "doc_id": "D02",
+            "title": "费用报销管理办法（2026 修订）",
+            "version_date": "2026-01-01",
+            "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。"
+          }
+        ],
+        "gaps": [],
+        "followup_question": "请确认适用哪份制度：D01（2025-01-01）、D02（2026-01-01）？",
+        "conflict": {
+          "detected": true,
+          "resolved": false,
+          "unresolved_items": [
+            {
+              "key": "报销期限",
+              "claims": [
+                {
+                  "doc_id": "D01",
+                  "value": "30天",
+                  "quote": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。",
+                  "version_date": "2025-01-01"
+                },
+                {
+                  "doc_id": "D02",
+                  "value": "15天",
+                  "quote": "报销申请须在费用发生后 15 天内提交，逾期不予受理。",
+                  "version_date": "2026-01-01"
+                }
+              ]
+            }
+          ],
+          "resolved_items": [],
+          "note": "未提供适用范围或优先级，不擅自选择版本。"
+        }
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 8
+    }
+  ],
+  "finished_at": "2026-11-11T16:55:16+0800",
+  "result": {
+    "status": "completed",
+    "outcome": "needs_clarification",
+    "stop_reason": "finished"
+  }
+}

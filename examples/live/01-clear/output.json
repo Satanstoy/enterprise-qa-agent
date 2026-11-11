@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-8DC62B227F",
+  "request_id": "QA-001",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "mode_note": "真实模型（本机 OpenCode 实验接口）决策；结果仍需人工确认。",
+  "status": "completed",
+  "outcome": "answered",
+  "answer_status": "answered",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 4,
+    "used_tool_calls": 4
+  },
+  "request": {
+    "request_id": "QA-001",
+    "question": "企业版试用期多久？",
+    "history": [],
+    "user_scope": ""
+  },
+  "question": "企业版试用期多久？",
+  "answer": "企业版试用期为 14 天；试用期内最多可创建 20 个成员账号。",
+  "citations": [
+    {
+      "doc_id": "D03",
+      "quote": "企业版提供 14 天试用期，试用期内可创建最多 20 个成员账号。"
+    }
+  ],
+  "gaps": [],
+  "followup_question": "",
+  "conflict": {
+    "detected": false,
+    "resolved": false,
+    "unresolved_items": [],
+    "resolved_items": []
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "企业版试用期多久",
+        "ok": true,
+        "hit_count": 2,
+        "hits": [
+          {
+            "doc_id": "D03",
+            "title": "企业版产品 FAQ",
+            "version_date": "2026-02-01",
+            "score": 52,
+            "snippet": "企业版提供 14 天试用期，试用期内可创建最多 20 个成员账号。"
+          },
+          {
+            "doc_id": "D04",
+            "title": "企业版续费说明",
+            "version_date": "2026-03-01",
+            "score": 39,
+            "snippet": "企业版试用期结束后，管理员可在控制台选择续费；未续费的账号将在 7 天后转为只读。"
+          }
+        ]
+      }
+    ],
+    "documents_read": [
+      "D03",
+      "D04"
+    ]
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "检索完成",
+      "arguments": {
+        "query": "企业版试用期多久",
+        "top_k": 5
+      },
+      "decision_basis": "先检索与企业版试用期相关的制度或FAQ文档。"
+    },
+    {
+      "step": 2,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D03"
+      },
+      "decision_basis": "检索命中了企业版产品 FAQ，需读取原文核对试用期及限制。"
+    },
+    {
+      "step": 3,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D04"
+      },
+      "decision_basis": "需要读取续费说明原文，核对其是否给出不同的试用期或废止关系。"
+    },
+    {
+      "step": 4,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "answered",
+        "answer": "企业版试用期为 14 天；试用期内最多可创建 20 个成员账号。",
+        "citations": [
+          {
+            "doc_id": "D03",
+            "quote": "企业版提供 14 天试用期，试用期内可创建最多 20 个成员账号。"
+          }
+        ],
+        "gaps": [],
+        "followup_question": null,
+        "conflict": []
+      },
+      "decision_basis": "已读取原文，文档明确说明企业版试用期时长。"
+    }
+  ],
+  "degraded": false,
+  "failed_tool_calls": [],
+  "decision_basis": "引用原文片段回答，片段已由 finish 工具校验。",
+  "summary": {
+    "tools_succeeded": 4,
+    "tools_failed": 0,
+    "documents_read": 2,
+    "citations": 1
+  }
+}

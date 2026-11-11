@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-18F4680608",
+  "request_id": "QA-006",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "mode_note": "真实模型（本机 OpenCode 实验接口）决策；结果仍需人工确认。",
+  "status": "completed",
+  "outcome": "tool_error",
+  "answer_status": "tool_error",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 3,
+    "used_tool_calls": 3
+  },
+  "request": {
+    "request_id": "QA-006",
+    "question": "企业版试用期多久？",
+    "history": [],
+    "user_scope": ""
+  },
+  "question": "企业版试用期多久？",
+  "answer": "无法回答：检索工具 search_docs 已连续两次返回 INJECTED_FAILURE（注入的工具失败），按规则重试一次后仍然失败。因此无法检索到任何制度文档，也无法用 read_doc 读取原文，所以不能给出“企业版试用期”的可靠答案。",
+  "citations": [],
+  "gaps": [
+    "search_docs 两次调用均因 INJECTED_FAILURE 失败，未获得任何文档 ID 或片段",
+    "未读取任何文档原文，缺少可引用依据"
+  ],
+  "followup_question": "是否稍后重试检索，或提供相关制度文档的名称或编号以便直接读取？",
+  "conflict": {
+    "detected": false,
+    "resolved": false,
+    "unresolved_items": [],
+    "resolved_items": []
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "企业版试用期",
+        "ok": false,
+        "hit_count": null,
+        "hits": []
+      },
+      {
+        "query": "企业版试用期",
+        "ok": false,
+        "hit_count": null,
+        "hits": []
+      }
+    ],
+    "documents_read": []
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "failed",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs",
+      "arguments": {
+        "query": "企业版试用期",
+        "top_k": 5
+      },
+      "decision_basis": "先检索企业版试用期相关制度或FAQ文档。"
+    },
+    {
+      "step": 2,
+      "tool": "search_docs",
+      "status": "failed",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs",
+      "arguments": {
+        "query": "企业版试用期",
+        "top_k": 5
+      },
+      "decision_basis": "检索工具首次注入失败，按规则需原查询重试一次以获取相关制度文档。"
+    },
+    {
+      "step": 3,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "tool_error",
+        "answer": "无法回答：检索工具 search_docs 已连续两次返回 INJECTED_FAILURE（注入的工具失败），按规则重试一次后仍然失败。因此无法检索到任何制度文档，也无法用 read_doc 读取原文，所以不能给出“企业版试用期”的可靠答案。",
+        "citations": [],
+        "gaps": [
+          "search_docs 两次调用均因 INJECTED_FAILURE 失败，未获得任何文档 ID 或片段",
+          "未读取任何文档原文，缺少可引用依据"
+        ],
+        "followup_question": "是否稍后重试检索，或提供相关制度文档的名称或编号以便直接读取？",
+        "conflict": null
+      },
+      "decision_basis": ""
+    }
+  ],
+  "degraded": true,
+  "failed_tool_calls": [
+    {
+      "tool": "search_docs",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs"
+    },
+    {
+      "tool": "search_docs",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs"
+    }
+  ],
+  "decision_basis": "工具连续失败，未生成无依据答案。",
+  "summary": {
+    "tools_succeeded": 1,
+    "tools_failed": 2,
+    "documents_read": 0,
+    "citations": 0
+  }
+}

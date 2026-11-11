@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-778DF835F9",
+  "request_id": "QA-007",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "mode_note": "真实模型（本机 OpenCode 实验接口）决策；结果仍需人工确认。",
+  "status": "completed",
+  "outcome": "answered",
+  "answer_status": "answered",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 4,
+    "used_tool_calls": 4
+  },
+  "request": {
+    "request_id": "QA-007",
+    "question": "发票怎么提交？",
+    "history": [],
+    "user_scope": ""
+  },
+  "question": "发票怎么提交？",
+  "answer": "按现行 2026 版发票制度：员工在报销系统上传电子发票 PDF，无需邮寄；2024 版纸质邮寄制度已同时废止。",
+  "citations": [
+    {
+      "doc_id": "D06",
+      "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+    },
+    {
+      "doc_id": "D05",
+      "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+    }
+  ],
+  "gaps": [],
+  "followup_question": "",
+  "conflict": {
+    "detected": true,
+    "resolved": true,
+    "unresolved_items": [],
+    "resolved_items": [
+      {
+        "key": "发票提交方式",
+        "authoritative": {
+          "doc_id": "D06",
+          "value": "电子上传",
+          "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。",
+          "version_date": "2026-01-15"
+        },
+        "superseded": [
+          {
+            "doc_id": "D05",
+            "value": "纸质邮寄",
+            "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+            "version_date": "2024-06-01"
+          }
+        ],
+        "note": "D06 明确废止 D05，采用前者。"
+      }
+    ],
+    "authoritative_doc_id": "D06",
+    "note": "D06 明确废止 D05，故以 D06 为准。"
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "发票提交 流程",
+        "ok": true,
+        "hit_count": 2,
+        "hits": [
+          {
+            "doc_id": "D05",
+            "title": "发票制度（2024 版）",
+            "version_date": "2024-06-01",
+            "score": 13,
+            "snippet": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+          },
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "score": 13,
+            "snippet": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          }
+        ]
+      }
+    ],
+    "documents_read": [
+      "D06",
+      "D05"
+    ]
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "检索完成",
+      "arguments": {
+        "query": "发票提交 流程",
+        "top_k": 5
+      },
+      "decision_basis": "需先检索与发票提交相关的制度或FAQ，确认是否存在可引用文档。"
+    },
+    {
+      "step": 2,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D06"
+      },
+      "decision_basis": "检索命中 2026 版发票制度且其声称废止 2024 版，需读取原文核对提交方式与废止声明。"
+    },
+    {
+      "step": 3,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D05"
+      },
+      "decision_basis": "2026 版声明废止 2024 版，必须读取被废止文档核对冲突与适用关系。"
+    },
+    {
+      "step": 4,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "answered",
+        "answer": "按现行 2026 版发票制度：员工在报销系统上传电子发票 PDF，无需邮寄；2024 版纸质邮寄制度已同时废止。",
+        "citations": [
+          {
+            "doc_id": "D06",
+            "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          },
+          {
+            "doc_id": "D05",
+            "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+          }
+        ],
+        "gaps": [],
+        "followup_question": null,
+        "conflict": {
+          "resolved": true,
+          "note": "D06 明确废止 D05，故以 D06 为准。"
+        }
+      },
+      "decision_basis": "已读取 2026 版及被废止的 2024 版原文，废止关系明确。"
+    }
+  ],
+  "degraded": false,
+  "failed_tool_calls": [],
+  "decision_basis": "引用原文片段回答，片段已由 finish 工具校验。",
+  "summary": {
+    "tools_succeeded": 4,
+    "tools_failed": 0,
+    "documents_read": 2,
+    "citations": 2
+  }
+}

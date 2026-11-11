@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-EAF8528CCC",
+  "request_id": "QA-005",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "status": "completed",
+  "outcome": "answered",
+  "answer_status": "answered",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 4,
+    "used_tool_calls": 4
+  },
+  "request": {
+    "request_id": "QA-005",
+    "question": "那之后呢？",
+    "history": [
+      {
+        "role": "user",
+        "content": "企业版试用期多久？"
+      },
+      {
+        "role": "assistant",
+        "content": "企业版试用期为 14 天。"
+      }
+    ],
+    "user_scope": ""
+  },
+  "question": "那之后呢？",
+  "answer": "企业版试用期结束后，管理员可在控制台选择续费；未续费的账号会在 7 天后转为只读。",
+  "citations": [
+    {
+      "doc_id": "D04",
+      "title": "企业版续费说明",
+      "version_date": "2026-03-01",
+      "quote": "企业版试用期结束后，管理员可在控制台选择续费；未续费的账号将在 7 天后转为只读。"
+    }
+  ],
+  "gaps": [],
+  "followup_question": "",
+  "conflict": {
+    "detected": false,
+    "resolved": false,
+    "unresolved_items": [],
+    "resolved_items": []
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "那之后呢？ 企业版试用期 结束",
+        "ok": true,
+        "hit_count": 2,
+        "hits": [
+          {
+            "doc_id": "D03",
+            "title": "企业版产品 FAQ",
+            "version_date": "2026-02-01",
+            "score": 48,
+            "snippet": "企业版提供 14 天试用期，试用期内可创建最多 20 个成员账号。"
+          },
+          {
+            "doc_id": "D04",
+            "title": "企业版续费说明",
+            "version_date": "2026-03-01",
+            "score": 48,
+            "snippet": "企业版试用期结束后，管理员可在控制台选择续费；未续费的账号将在 7 天后转为只读。"
+          }
+        ]
+      }
+    ],
+    "documents_read": [
+      "D03",
+      "D04"
+    ]
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "检索完成",
+      "arguments": {
+        "query": "那之后呢？ 企业版试用期 结束",
+        "top_k": 3
+      },
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。"
+    },
+    {
+      "step": 2,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D03"
+      },
+      "decision_basis": "读取 D03 原文，核对引用和冲突。"
+    },
+    {
+      "step": 3,
+      "tool": "read_doc",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "读取完成",
+      "arguments": {
+        "doc_id": "D04"
+      },
+      "decision_basis": "读取 D04 原文，核对引用和冲突。"
+    },
+    {
+      "step": 4,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "answered",
+        "answer": "企业版试用期结束后，管理员可在控制台选择续费；未续费的账号会在 7 天后转为只读。",
+        "citations": [
+          {
+            "doc_id": "D04",
+            "title": "企业版续费说明",
+            "version_date": "2026-03-01",
+            "quote": "企业版试用期结束后，管理员可在控制台选择续费；未续费的账号将在 7 天后转为只读。"
+          }
+        ],
+        "conflict": {
+          "detected": false,
+          "resolved": false
+        }
+      },
+      "decision_basis": "依据 D04 的原文回答。"
+    }
+  ],
+  "degraded": false,
+  "failed_tool_calls": [],
+  "decision_basis": "引用原文片段回答，片段已由 finish 工具校验。",
+  "summary": {
+    "tools_succeeded": 4,
+    "tools_failed": 0,
+    "documents_read": 2,
+    "citations": 1
+  }
+}

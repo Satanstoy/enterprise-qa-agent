@@ -1,0 +1,8 @@
+{
+  "request_id": "QA-005",
+  "question": "那之后呢？",
+  "history": [
+    {"role": "user", "content": "企业版试用期多久？"},
+    {"role": "assistant", "content": "企业版试用期为 14 天。"}
+  ]
+}

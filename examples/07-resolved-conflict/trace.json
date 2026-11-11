@@ -1,0 +1,327 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-18B2419BA6",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "request": {
+    "request_id": "QA-007",
+    "question": "发票怎么提交？",
+    "history": [],
+    "user_scope": ""
+  },
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20
+  },
+  "prompt_sha256": "offline-reference-policy",
+  "started_at": "2026-11-11T16:55:16+0800",
+  "steps": [
+    {
+      "type": "model_decision",
+      "model_step": 1,
+      "assistant_text": "",
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。",
+      "tool_calls": [
+        {
+          "id": "call_1",
+          "name": "search_docs",
+          "arguments": {
+            "query": "发票怎么提交？ 上传 提交 发票 报销",
+            "top_k": 3
+          },
+          "reason": "先检索相关制度或 FAQ；必要时扩展同义词。"
+        }
+      ],
+      "index": 1
+    },
+    {
+      "type": "tool_result",
+      "model_step": 1,
+      "tool_call_id": "call_1",
+      "tool": "search_docs",
+      "arguments": {
+        "query": "发票怎么提交？ 上传 提交 发票 报销",
+        "top_k": 3
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "检索完成",
+      "data": {
+        "query": "发票怎么提交？ 上传 提交 发票 报销",
+        "hits": [
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "score": 21,
+            "snippet": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          },
+          {
+            "doc_id": "D05",
+            "title": "发票制度（2024 版）",
+            "version_date": "2024-06-01",
+            "score": 15,
+            "snippet": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+          }
+        ],
+        "hit_count": 2
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 2
+    },
+    {
+      "type": "model_decision",
+      "model_step": 2,
+      "assistant_text": "",
+      "decision_basis": "读取 D06 原文，核对引用和冲突。",
+      "tool_calls": [
+        {
+          "id": "call_2",
+          "name": "read_doc",
+          "arguments": {
+            "doc_id": "D06"
+          },
+          "reason": "读取 D06 原文，核对引用和冲突。"
+        }
+      ],
+      "index": 3
+    },
+    {
+      "type": "tool_result",
+      "model_step": 2,
+      "tool_call_id": "call_2",
+      "tool": "read_doc",
+      "arguments": {
+        "doc_id": "D06"
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "读取完成",
+      "data": {
+        "doc_id": "D06",
+        "title": "发票制度（2026 版）",
+        "version_date": "2026-01-15",
+        "owner": "财务部",
+        "scope": null,
+        "supersedes": [
+          "D05"
+        ],
+        "tags": [
+          "发票",
+          "电子",
+          "报销",
+          "财务"
+        ],
+        "text": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。",
+        "answer": "按 2026 版发票制度，员工在报销系统上传电子发票 PDF，无需邮寄；2024 版已废止。",
+        "claims": [
+          {
+            "key": "发票提交方式",
+            "value": "电子上传",
+            "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          }
+        ],
+        "intents": [
+          "发票",
+          "提交",
+          "上传",
+          "电子",
+          "邮寄"
+        ]
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 4
+    },
+    {
+      "type": "model_decision",
+      "model_step": 3,
+      "assistant_text": "",
+      "decision_basis": "读取 D05 原文，核对引用和冲突。",
+      "tool_calls": [
+        {
+          "id": "call_3",
+          "name": "read_doc",
+          "arguments": {
+            "doc_id": "D05"
+          },
+          "reason": "读取 D05 原文，核对引用和冲突。"
+        }
+      ],
+      "index": 5
+    },
+    {
+      "type": "tool_result",
+      "model_step": 3,
+      "tool_call_id": "call_3",
+      "tool": "read_doc",
+      "arguments": {
+        "doc_id": "D05"
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "读取完成",
+      "data": {
+        "doc_id": "D05",
+        "title": "发票制度（2024 版）",
+        "version_date": "2024-06-01",
+        "owner": "财务部",
+        "scope": null,
+        "supersedes": [],
+        "tags": [
+          "发票",
+          "纸质",
+          "报销",
+          "财务"
+        ],
+        "text": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+        "answer": "按 2024 版制度，纸质发票需在开具后 30 天内邮寄至财务部。",
+        "claims": [
+          {
+            "key": "发票提交方式",
+            "value": "纸质邮寄",
+            "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+          }
+        ],
+        "intents": [
+          "发票",
+          "提交",
+          "邮寄",
+          "纸质"
+        ]
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 6
+    },
+    {
+      "type": "model_decision",
+      "model_step": 4,
+      "assistant_text": "",
+      "decision_basis": "发现版本冲突，依据文档中的废止关系采用新制度。",
+      "tool_calls": [
+        {
+          "id": "call_4",
+          "name": "finish",
+          "arguments": {
+            "status": "answered",
+            "answer": "按 2026 版发票制度，员工在报销系统上传电子发票 PDF，无需邮寄；2024 版已废止。",
+            "citations": [
+              {
+                "doc_id": "D06",
+                "title": "发票制度（2026 版）",
+                "version_date": "2026-01-15",
+                "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+              }
+            ],
+            "conflict": {
+              "detected": true,
+              "resolved": true,
+              "field": "发票提交方式",
+              "authoritative_doc_id": "D06",
+              "superseded": [
+                {
+                  "doc_id": "D05",
+                  "value": "纸质邮寄",
+                  "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+                  "version_date": "2024-06-01"
+                }
+              ],
+              "note": "D06 明确废止 D05，采用前者。"
+            }
+          },
+          "reason": "发现版本冲突，依据文档中的废止关系采用新制度。"
+        }
+      ],
+      "index": 7
+    },
+    {
+      "type": "tool_result",
+      "model_step": 4,
+      "tool_call_id": "call_4",
+      "tool": "finish",
+      "arguments": {
+        "status": "answered",
+        "answer": "按 2026 版发票制度，员工在报销系统上传电子发票 PDF，无需邮寄；2024 版已废止。",
+        "citations": [
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          }
+        ],
+        "conflict": {
+          "detected": true,
+          "resolved": true,
+          "field": "发票提交方式",
+          "authoritative_doc_id": "D06",
+          "superseded": [
+            {
+              "doc_id": "D05",
+              "value": "纸质邮寄",
+              "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+              "version_date": "2024-06-01"
+            }
+          ],
+          "note": "D06 明确废止 D05，采用前者。"
+        }
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "任务结束",
+      "data": {
+        "status": "answered",
+        "answer": "按 2026 版发票制度，员工在报销系统上传电子发票 PDF，无需邮寄；2024 版已废止。",
+        "citations": [
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          }
+        ],
+        "gaps": [],
+        "followup_question": "",
+        "conflict": {
+          "detected": true,
+          "resolved": true,
+          "unresolved_items": [],
+          "resolved_items": [
+            {
+              "key": "发票提交方式",
+              "authoritative": {
+                "doc_id": "D06",
+                "value": "电子上传",
+                "quote": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。",
+                "version_date": "2026-01-15"
+              },
+              "superseded": [
+                {
+                  "doc_id": "D05",
+                  "value": "纸质邮寄",
+                  "quote": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。",
+                  "version_date": "2024-06-01"
+                }
+              ],
+              "note": "D06 明确废止 D05，采用前者。"
+            }
+          ],
+          "authoritative_doc_id": "D06",
+          "note": "D06 明确废止 D05，采用前者。"
+        }
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 8
+    }
+  ],
+  "finished_at": "2026-11-11T16:55:16+0800",
+  "result": {
+    "status": "completed",
+    "outcome": "answered",
+    "stop_reason": "finished"
+  }
+}

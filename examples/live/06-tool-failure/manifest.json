@@ -1,0 +1,24 @@
+{
+  "command": "python3 run.py run --input examples/live/06-tool-failure/input.json --data-dir data --state-dir examples/live/06-tool-failure --engine opencode-local --provider opencode-go --model deepseek-v4.1-flash --now 2026-11-10T09:00:00+08:00 --fault search_docs:2",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "provider": "opencode-go",
+  "real_model_call": true,
+  "faults": [
+    "search_docs:2"
+  ],
+  "expected": "tool_error",
+  "citations": [],
+  "tool_sequence": [
+    "search_docs",
+    "search_docs",
+    "finish"
+  ],
+  "context_stats": {
+    "chars": 2248,
+    "observations_total": 2,
+    "observations_detailed": 2,
+    "observations_omitted": 0,
+    "truncated": false
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-84FA4837F2",
+  "engine": "live-opencode-local",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "mode_note": "真实模型（本机 OpenCode 实验接口）决策；结果仍需人工确认。",
+  "request": {
+    "request_id": "QA-004",
+    "question": "年假有多少天？",
+    "history": [],
+    "user_scope": ""
+  },
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20
+  },
+  "prompt_sha256": "86f268082dd87d667c9ef9caa1c8153b74c1eda9129b8ca1bed2cda65b10b962",
+  "started_at": "2026-11-11T17:09:28+0800",
+  "steps": [
+    {
+      "type": "model_decision",
+      "model_step": 1,
+      "assistant_text": "{\"tool\":\"search_docs\",\"arguments\":{\"query\":\"年假有多少天\",\"top_k\":5},\"reason\":\"需要先检索与年假天数相关的制度文档，再读取原文核对。\"}",
+      "decision_basis": "需要先检索与年假天数相关的制度文档，再读取原文核对。",
+      "tool_calls": [
+        {
+          "id": "call_1",
+          "name": "search_docs",
+          "arguments": {
+            "query": "年假有多少天",
+            "top_k": 5
+          },
+          "reason": "需要先检索与年假天数相关的制度文档，再读取原文核对。"
+        }
+      ],
+      "index": 1
+    },
+    {
+      "type": "tool_result",
+      "model_step": 1,
+      "tool_call_id": "call_1",
+      "tool": "search_docs",
+      "arguments": {
+        "query": "年假有多少天",
+        "top_k": 5
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "检索完成",
+      "data": {
+        "query": "年假有多少天",
+        "hits": [],
+        "hit_count": 0
+      },
+      "error": null,
+      "elapsed_ms": 2,
+      "index": 2
+    },
+    {
+      "type": "model_decision",
+      "model_step": 2,
+      "assistant_text": "{\"tool\":\"search_docs\",\"arguments\":{\"query\":\"年假 假期 天数 制度\",\"top_k\":5},\"reason\":\"首次检索无命中，按规则需改写查询再检索一次。\"}",
+      "decision_basis": "首次检索无命中，按规则需改写查询再检索一次。",
+      "tool_calls": [
+        {
+          "id": "call_2",
+          "name": "search_docs",
+          "arguments": {
+            "query": "年假 假期 天数 制度",
+            "top_k": 5
+          },
+          "reason": "首次检索无命中，按规则需改写查询再检索一次。"
+        }
+      ],
+      "index": 3
+    },
+    {
+      "type": "tool_result",
+      "model_step": 2,
+      "tool_call_id": "call_2",
+      "tool": "search_docs",
+      "arguments": {
+        "query": "年假 假期 天数 制度",
+        "top_k": 5
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "检索完成",
+      "data": {
+        "query": "年假 假期 天数 制度",
+        "hits": [
+          {
+            "doc_id": "D05",
+            "title": "发票制度（2024 版）",
+            "version_date": "2024-06-01",
+            "score": 3,
+            "snippet": "2024 版发票制度：纸质发票需在开具后 30 天内邮寄至财务部。"
+          },
+          {
+            "doc_id": "D06",
+            "title": "发票制度（2026 版）",
+            "version_date": "2026-01-15",
+            "score": 3,
+            "snippet": "2026 版发票制度：全面使用电子发票，员工在报销系统上传 PDF，无需邮寄。原 2024 版同时废止。"
+          },
+          {
+            "doc_id": "D01",
+            "title": "差旅报销制度",
+            "version_date": "2025-01-01",
+            "score": 2,
+            "snippet": "员工应在费用发生后 30 天内提交报销申请，逾期需部门负责人审批。发票抬头应与公司名称一致。"
+          }
+        ],
+        "hit_count": 3
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 4
+    },
+    {
+      "type": "model_decision",
+      "model_step": 3,
+      "assistant_text": "{\"tool\":\"finish\",\"arguments\":{\"status\":\"insufficient\",\"answer\":\"未在现有制度文档中检索到与“年假天数”相关的条款。两次检索（“年假有多少天”“年假 假期 天数 制度”）返回的均为发票制度与差旅报销制度片段，与年假无关，因此无法依据原文回答年假天数。\",\"citations\":[],\"gaps\":[\"缺少年假/休假管理制度文档，未检索到任何规定年假天数的原文\"],\"followup_question\":\"请提供年假制度文档名称或文档 ID，或确认是否由 HR 单独发布休假制度。\",\"conflict\":null},\"reason\":\"两次检索均无年假相关原文，按规则说明资料缺口而非猜测\"}",
+      "decision_basis": "两次检索均无年假相关原文，按规则说明资料缺口而非猜测",
+      "tool_calls": [
+        {
+          "id": "call_3",
+          "name": "finish",
+          "arguments": {
+            "status": "insufficient",
+            "answer": "未在现有制度文档中检索到与“年假天数”相关的条款。两次检索（“年假有多少天”“年假 假期 天数 制度”）返回的均为发票制度与差旅报销制度片段，与年假无关，因此无法依据原文回答年假天数。",
+            "citations": [],
+            "gaps": [
+              "缺少年假/休假管理制度文档，未检索到任何规定年假天数的原文"
+            ],
+            "followup_question": "请提供年假制度文档名称或文档 ID，或确认是否由 HR 单独发布休假制度。",
+            "conflict": null
+          },
+          "reason": "两次检索均无年假相关原文，按规则说明资料缺口而非猜测"
+        }
+      ],
+      "index": 5
+    },
+    {
+      "type": "tool_result",
+      "model_step": 3,
+      "tool_call_id": "call_3",
+      "tool": "finish",
+      "arguments": {
+        "status": "insufficient",
+        "answer": "未在现有制度文档中检索到与“年假天数”相关的条款。两次检索（“年假有多少天”“年假 假期 天数 制度”）返回的均为发票制度与差旅报销制度片段，与年假无关，因此无法依据原文回答年假天数。",
+        "citations": [],
+        "gaps": [
+          "缺少年假/休假管理制度文档，未检索到任何规定年假天数的原文"
+        ],
+        "followup_question": "请提供年假制度文档名称或文档 ID，或确认是否由 HR 单独发布休假制度。",
+        "conflict": null
+      },
+      "ok": true,
+      "code": "OK",
+      "summary": "任务结束",
+      "data": {
+        "status": "insufficient",
+        "answer": "未在现有制度文档中检索到与“年假天数”相关的条款。两次检索（“年假有多少天”“年假 假期 天数 制度”）返回的均为发票制度与差旅报销制度片段，与年假无关，因此无法依据原文回答年假天数。",
+        "citations": [],
+        "gaps": [
+          "缺少年假/休假管理制度文档，未检索到任何规定年假天数的原文"
+        ],
+        "followup_question": "请提供年假制度文档名称或文档 ID，或确认是否由 HR 单独发布休假制度。",
+        "conflict": {
+          "detected": false,
+          "resolved": false,
+          "unresolved_items": [],
+          "resolved_items": []
+        }
+      },
+      "error": null,
+      "elapsed_ms": 0,
+      "index": 6
+    },
+    {
+      "type": "context_stats",
+      "chars": 2471,
+      "observations_total": 2,
+      "observations_detailed": 2,
+      "observations_omitted": 0,
+      "truncated": false,
+      "index": 7
+    }
+  ],
+  "finished_at": "2026-11-11T17:09:47+0800",
+  "result": {
+    "status": "completed",
+    "outcome": "insufficient",
+    "stop_reason": "finished"
+  }
+}

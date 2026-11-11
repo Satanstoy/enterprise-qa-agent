@@ -1,0 +1,10 @@
+{
+  "command": "python3 run.py run --input examples/01-clear/input.json --data-dir data --state-dir examples/01-clear --engine offline --now 2026-11-10T09:00:00+08:00",
+  "engine": "offline",
+  "model": "reference-policy",
+  "faults": [],
+  "expected": "answered",
+  "citations": [
+    "D03"
+  ]
+}

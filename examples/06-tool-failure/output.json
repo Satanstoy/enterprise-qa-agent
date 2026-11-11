@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "run_id": "QA-516778E6DC",
+  "request_id": "QA-006",
+  "engine": "offline-reference",
+  "model": "reference-policy",
+  "mode_note": "离线参考策略仅验证流程、状态和护栏，不代表真实模型决策效果。",
+  "status": "completed",
+  "outcome": "tool_error",
+  "answer_status": "tool_error",
+  "stop_reason": "finished",
+  "limits": {
+    "max_steps": 12,
+    "max_tool_calls": 20,
+    "used_steps": 3,
+    "used_tool_calls": 3
+  },
+  "request": {
+    "request_id": "QA-006",
+    "question": "企业版试用期多久？",
+    "history": [],
+    "user_scope": ""
+  },
+  "question": "企业版试用期多久？",
+  "answer": "",
+  "citations": [],
+  "gaps": [
+    {
+      "code": "SEARCH_FAILED",
+      "message": "检索工具连续失败，未生成答案"
+    }
+  ],
+  "followup_question": "",
+  "conflict": {
+    "detected": false,
+    "resolved": false,
+    "unresolved_items": [],
+    "resolved_items": []
+  },
+  "retrieval": {
+    "queries": [
+      {
+        "query": "企业版试用期多久？ 期限 天内",
+        "ok": false,
+        "hit_count": null,
+        "hits": []
+      },
+      {
+        "query": "企业版试用期多久？ 期限 天内 制度",
+        "ok": false,
+        "hit_count": null,
+        "hits": []
+      }
+    ],
+    "documents_read": []
+  },
+  "plan_steps": [
+    {
+      "step": 1,
+      "tool": "search_docs",
+      "status": "failed",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs",
+      "arguments": {
+        "query": "企业版试用期多久？ 期限 天内",
+        "top_k": 3
+      },
+      "decision_basis": "先检索相关制度或 FAQ；必要时扩展同义词。"
+    },
+    {
+      "step": 2,
+      "tool": "search_docs",
+      "status": "failed",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs",
+      "arguments": {
+        "query": "企业版试用期多久？ 期限 天内 制度",
+        "top_k": 3
+      },
+      "decision_basis": "检索失败，扩展同义词后重试一次。"
+    },
+    {
+      "step": 3,
+      "tool": "finish",
+      "status": "succeeded",
+      "code": "OK",
+      "summary": "任务结束",
+      "arguments": {
+        "status": "tool_error",
+        "answer": "",
+        "gaps": [
+          {
+            "code": "SEARCH_FAILED",
+            "message": "检索工具连续失败，未生成答案"
+          }
+        ]
+      },
+      "decision_basis": "连续检索失败，停止并说明工具故障。"
+    }
+  ],
+  "degraded": true,
+  "failed_tool_calls": [
+    {
+      "tool": "search_docs",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs"
+    },
+    {
+      "tool": "search_docs",
+      "code": "INJECTED_FAILURE",
+      "summary": "注入的工具失败：search_docs"
+    }
+  ],
+  "decision_basis": "工具连续失败，未生成无依据答案。",
+  "summary": {
+    "tools_succeeded": 1,
+    "tools_failed": 2,
+    "documents_read": 0,
+    "citations": 0
+  }
+}
